@@ -3,19 +3,27 @@ const baseURL = 'http://localhost:3000/api/bookings/'
 export default {
     getBookings() {
         return fetch(baseURL)
-        .then(res => res.json())
+            .then(res => res.json())
     },
-    postBooking(payload){
+    postBooking(payload) {
         return fetch(baseURL, {
             method: 'POST',
             body: JSON.stringify(payload),
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' }
         })
-        .then(res => res.json())
+            .then(res => res.json())
     },
-    deleteBooking(id){
+    deleteBooking(id) {
         return fetch(baseURL + id, {
             method: 'DELETE'
         })
+    },
+    putBooking(id, payload) {
+        return fetch(baseURL + id, {
+            method: 'PUT',
+            body: JSON.stringify(payload),
+            headers: { 'Content-Type': 'application/json' }
+        })
+            .then(res => res.json())
     }
 }

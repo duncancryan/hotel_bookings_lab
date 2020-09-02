@@ -29,6 +29,11 @@ export default {
     eventBus.$on('booking-added', (booking) => {
       this.bookings.push(booking)
     })
+
+    eventBus.$on('booking-changed', (newBooking) => {
+      const index = this.bookings.findIndex(booking => booking._id === newBooking._id)
+      this.bookings.splice(index, 1, newBooking)
+    })
   },
   components: {
     'booking-form': BookingForm,
