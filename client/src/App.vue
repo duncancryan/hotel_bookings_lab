@@ -25,6 +25,10 @@ export default {
       const index = this.bookings.findIndex(booking => booking._id === id)
       this.bookings.splice(index, 1)
     })
+
+    eventBus.$on('booking-added', (booking) => {
+      this.bookings.push(booking)
+    })
   },
   components: {
     'booking-form': BookingForm,

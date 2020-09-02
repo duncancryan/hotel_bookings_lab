@@ -15,8 +15,31 @@
 </template>
 
 <script>
-export default {
+import { eventBus } from '@/main.js'
+import BookingService from '@/services/BookingService.js'
 
+export default {
+    name: 'booking-from',
+    data() {
+        return {
+            name: "",
+            email: "",
+            checked_in: false
+        }
+    },
+    methods: {
+        addBooking: function() {
+            const booking = {
+                name: this.name,
+                email: this.email,
+                checked_in: this.checked_in
+            }
+            BookingService.postBooking(booking)
+            .then(res => eventBus.$emit('booking-added', res))
+            this.name = ""
+            this.email = ""
+        }
+    }
 }
 </script>
 
