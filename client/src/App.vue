@@ -1,28 +1,39 @@
-<template>
+  <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <booking-form />
+    <booking-list :bookings="bookings" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import BookingForm from './components/BookingForm';
+import BookingList from './components/BookingList';
+import BookingService from './services/BookingService';
+import { eventBus } from '@/main';
 
 export default {
   name: 'App',
+  data(){
+    return {
+      bookings: []
+    }
+  },
+  mounted() {
+    this.fetchBookings();
+  },
   components: {
-    HelloWorld
+    'booking-form': BookingForm,
+    'booking-list': BookingList
+  },
+  methods: {
+    fetchBookings() {
+      BookingService.getBookings()
+        .then(bookings => this.bookings = bookings);
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
